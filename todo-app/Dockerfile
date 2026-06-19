@@ -10,4 +10,6 @@ chown -R newuser:newuser /usr/src/app
 
 COPY --chown=newuser:newuser . .
 
+EXPOSE 3000
+
 CMD ["npm", "start"]
