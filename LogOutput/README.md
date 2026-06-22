@@ -1,8 +1,8 @@
 # Log Output
-Application for exercise *1.1*
+Application for exercise *1.10*
 ## Installation
 - Clone the repository
-- Build the docker image with `docker build -t logoutapp:1.7 . `
+- Build the docker images with `docker build -t logoutapp:1.10 . && doker build -t loginput:1.10 .`
 - Create the deployment with `kubectl apply -f manifests`
 
 ### Note

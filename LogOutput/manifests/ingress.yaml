@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: logoutputapp-ingress
-  annotations: 
+  annotations:
     traefik.ingress.kubernetes.io/router.middlewares: default-strip-pingpong@kubernetescrd
 
 spec:
@@ -23,3 +23,10 @@ spec:
                 name: ping-pong-app-svc
                 port:
                   number: 5555
+          - path: /loginput
+            pathType: Prefix
+            backend:
+              service:
+                name: loginputapp-svc
+                port:
+                  number: 2346

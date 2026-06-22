@@ -12,7 +12,19 @@ spec:
       labels:
         app: logoutput
     spec:
+      volumes:
+        - name: shared-storage
+          emptyDir: {}
       containers:
         - name: logoutputcontainer
-          image: logoutput:1.7
+          image: logoutput:1.10
           imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: shared-storage
+              mountPath: /usr/src/app/data
+        - name: loginputcontainer
+          image: loginput:1.10
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: shared-storage
+              mountPath: /usr/src/app/data

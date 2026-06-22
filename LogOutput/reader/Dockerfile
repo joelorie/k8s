@@ -12,4 +12,6 @@ COPY --chown=newuser:newuser . .
 
 USER newuser
 
-CMD [ "node", "index.js" ]
+EXPOSE 3001
+
+CMD ["npm", "start"]

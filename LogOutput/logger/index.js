@@ -2,17 +2,14 @@ const express = require('express')
 const path = require('path')
 const fs = require('fs/promises')
 
-const logFilePath = path.join(__dirname, 'application.log')
+const DATA_DIR = '/usr/src/app/data'
+const logFilePath = path.join(DATA_DIR, 'application.log')
 
 const app = express()
 
 let currentString = ''
 
 const PORT = 3000
-
-app.get('/', (request, response) => {
-  return response.json({ timestamp: currentString })
-})
 
 app.listen(PORT, () => {
   console.log(`Application running on port ${PORT}`)
