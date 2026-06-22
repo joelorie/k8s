@@ -12,3 +12,4 @@ Links to Kubernetes Exercises
 - [Exercise 1.8](https://github.com/joelorie/k8s/tree/1.8)
 - [Exercise 1.9](https://github.com/joelorie/k8s/tree/1.9)
 - [Exercise 1.10](https://github.com/joelorie/k8s/tree/1.10)
+- [Exercise 1.11](https://github.com/joelorie/k8s/tree/1.11)

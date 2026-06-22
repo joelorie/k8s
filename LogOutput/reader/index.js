@@ -2,6 +2,7 @@ const express = require('express')
 const fs = require('fs')
 
 const FILE = '/usr/src/app/data/application.log'
+const FILE2 = '/usr/src/app/data/pings.txt'
 
 let lines = []
 let lastSize = 0
@@ -26,7 +27,11 @@ fs.watch(FILE, () => {
 const app = express()
 
 app.get('/', (request, response) => {
-  return response.json({ lines })
+  let latestLine = lines[lines.length - 1]
+  let pongs = fs.readFileSync(FILE2, 'utf8')
+  let timeStamp = new Date().toISOString()
+  let returnString = `${timeStamp}: ${latestLine} Pongs:${pongs}`
+  return response.json({ returnString })
 })
 
 app.listen(3001, () => {
