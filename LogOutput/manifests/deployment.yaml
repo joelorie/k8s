@@ -12,20 +12,20 @@ spec:
       labels:
         app: logoutput
     spec:
-      volumes:
-        - name: shared-storage
-          persistentVolumeClaim: 
-            claimName: image-claim
+      # volumes:
+      #   - name: shared-storage
+      #     persistentVolumeClaim: 
+      #       claimName: image-claim
       containers:
         - name: logoutputcontainer
-          image: logoutput:1.10
+          image: logoutput:2.1
           imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - name: shared-storage
-              mountPath: /usr/src/app/data
+          # volumeMounts:
+          #   - name: shared-storage
+          #     mountPath: /usr/src/app/data
         - name: loginputcontainer
-          image: loginput:1.11
+          image: loginput:2.1
           imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - name: shared-storage
-              mountPath: /usr/src/app/data
+          # volumeMounts:
+          #   - name: shared-storage
+          #     mountPath: /usr/src/app/data

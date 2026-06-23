@@ -12,14 +12,14 @@ spec:
       labels:
         app: ping-pong-app
     spec:
-      volumes:
-        - name: storage
-          persistentVolumeClaim: 
-            claimName: image-claim
+      # volumes:
+        # - name: storage
+        #   persistentVolumeClaim: 
+        #     claimName: image-claim
       containers:
         - name: ping-pong-app-container
-          image: ping-pong-app:1.11
+          image: ping-pong-app:2.1
           imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - name: storage
-              mountPath: /usr/src/app/data
+          # volumeMounts:
+          #   - name: storage
+          #     mountPath: /usr/src/app/data
