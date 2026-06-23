@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/joelorie/k8s#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "axios": "^1.18.0",
+    "express": "^5.2.1",
+    "node-cron": "^4.5.0"
   }
 }

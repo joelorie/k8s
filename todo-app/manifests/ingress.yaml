@@ -12,4 +12,11 @@ spec:
               service:
                 name: todo-app-svc
                 port:
-                  number: 4455
+                    number: 4455
+          - path: /images
+            pathType: Prefix
+            backend:
+              service:
+                name: todo-app-backend-svc
+                port:
+                    number: 4456
