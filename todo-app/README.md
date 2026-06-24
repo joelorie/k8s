@@ -1,8 +1,8 @@
 # Log Output
-Application for exercise *1.2*
+Application for exercise *2.2*
 ## Installation
 - Clone the repository
-- Build the docker image with `docker build -t todo-app:1.5 . `
+- Build the docker image with `docker build -t todo-app:2.2 . && docker build --build-arg VITE_API_URL=http://localhost:8081/api -t todo-app-frontend:2.2 .`
 - Create the deployment with `kubectl apply -f manifests`
 
 ### Note

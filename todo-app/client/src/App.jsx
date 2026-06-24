@@ -1,22 +1,30 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8002'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8081/api'
 
 function App() {
   const [timestamp, setTimestamp] = useState(() => Date.now())
   const [todo, setTodo] = useState('')
-  const [todos, setTodos] = useState([
-    { id: 1, value: 'Clean the car' },
-    { id: 2, value: 'Re-Clean the car' },
-  ])
+  const [todos, setTodos] = useState([])
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     if (!todo.trim()) return
-    setTodos([...todos, { id: Date.now(), value: todo.trim() }])
-    setTodo('')
+    const response = await axios.post(`${API_URL}/todos`, { todo })
+    if (response.status === 201) {
+      setTodos(response.data.todos)
+      setTodo('')
+    } else {
+      console.log("An error occurred.")
+    }
   }
 
   useEffect(() => {
+    const initializeTodos = async () => {
+      const response = await axios.get(`${API_URL}/todos`)
+      setTodos(response.data.todos)
+    }
+    initializeTodos()
     const interval = setInterval(() => setTimestamp(Date.now()), 600000)
     return () => clearInterval(interval)
   }, [])
@@ -26,7 +34,7 @@ function App() {
       <div className="mb-6">
         <h1 className="text-2xl font-medium text-gray-900">My todos</h1>
         <p className="text-sm text-gray-400 mt-1">
-          {todos.length} items remaining
+          {todos?.length} items remaining
         </p>
       </div>
 
@@ -61,13 +69,13 @@ function App() {
       </p>
 
       <ul className="flex flex-col gap-2">
-        {todos.map((item) => (
+        {todos?.map((item) => (
           <li
             key={item.id}
             className="flex items-center gap-3 px-4 py-3 rounded-lg border border-gray-100 bg-white"
           >
             <div className="w-4 h-4 rounded-full border-2 border-gray-300 shrink-0" />
-            <span className="text-sm text-gray-800 flex-1">{item.value}</span>
+            <span className="text-sm text-gray-800 flex-1">{item.todo}</span>
           </li>
         ))}
       </ul>

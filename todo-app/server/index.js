@@ -1,14 +1,26 @@
 const express = require('express')
+const cors = require('cors')
 const fs = require('fs')
 const path = require('path')
 const cron = require('node-cron')
 const axios = require('axios')
+const { randomUUID } = require('crypto')
 
 const PORT = process.env.PORT || 3000
 
 const FILE = path.join('/usr/src/app/images', 'image.jpg')
 
 const app = express()
+
+app.use(express.json())
+app.use(
+  cors({
+    origin: ['http://localhost:8081', 'http://localhost'],
+    methods: ['POST', 'GET', 'DELETE', 'PUT', 'PATCH'],
+  }),
+)
+
+let todos = []
 
 const downloadImage = async () => {
   console.log('Downloading image at', new Date().toISOString())
@@ -39,14 +51,22 @@ const downloadImage = async () => {
   }
 }
 
-app.get('/', (req, res) => {
+app.get('/api/images', (req, res) => {
   res.sendFile(FILE, (err) => {
     if (err) res.status(404).send('Image not found')
   })
 })
 
-app.use('/images', (request, response) => {
-  return response.sendFile(FILE)
+app.get('/api/todos', (req, res) => {
+  res.json({ todos })
+})
+
+app.post('/api/todos', (request, response) => {
+  console.log(request.body)
+  const { todo } = request.body
+  const id = randomUUID()
+  todos = todos.concat({ id, todo })
+  response.status(201).json({ message: 'Todo Successfully Created!', todos })
 })
 
 cron.schedule('*/10 * * * *', async () => {
@@ -60,5 +80,4 @@ cron.schedule('*/10 * * * *', async () => {
 app.listen(PORT, async () => {
   console.log(`Server started in port ${PORT}`)
   await downloadImage()
-  setInterval(downloadImage, 600000)
 })
